@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 import './App.css'
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
-
+import { Analytics } from "@vercel/analytics/react"
 // routing
 import router from 'routes';
 
@@ -19,7 +19,9 @@ const App = () => {
   const customization = useSelector((state) => state.customization);
 
   return (
-    <StyledEngineProvider injectFirst>
+    
+   <>
+   <StyledEngineProvider injectFirst>
       <ThemeProvider theme={themes(customization)}>
         <CssBaseline />
         <NavigationScroll>
@@ -27,6 +29,8 @@ const App = () => {
         </NavigationScroll>
       </ThemeProvider>
     </StyledEngineProvider>
+     <Analytics  />
+   </>
   );
 };
 
