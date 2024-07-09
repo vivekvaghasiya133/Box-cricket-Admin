@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -22,6 +22,7 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import axios from 'axios';
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
@@ -32,6 +33,22 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
   const handleChangeTime = (event, newValue) => {
     setTimeValue(newValue);
   };
+
+  const [cnt ,  setCnt] = useState(0)
+
+  useEffect(()=>{
+    getOwner()
+  },[])
+  const getOwner = () => {
+    axios.get('http://localhost:3000/ownerCount')
+    .then((res)=>{
+      console.log(res.data.cnt);
+      setCnt(res.data.cnt)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
   return (
     <>
@@ -121,7 +138,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                         {timeValue ? (
                           <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$108</Typography>
                         ) : (
-                          <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$961</Typography>
+                          <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>{cnt}</Typography>
                         )}
                       </Grid>
                       <Grid item>
@@ -144,7 +161,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                             color: '#D2E3C8'
                           }}
                         >
-                          Total Order
+                          Total Owner
                         </Typography>
                       </Grid>
                     </Grid>

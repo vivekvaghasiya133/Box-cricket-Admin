@@ -36,10 +36,12 @@ import User1 from 'assets/images/users/user-round.svg';
 
 // assets
 import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons-react';
+import axios from 'axios';
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
+  var token = localStorage.getItem('Admin')
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
   const navigate = useNavigate();
@@ -84,8 +86,29 @@ const ProfileSection = () => {
       anchorRef.current.focus();
     }
 
-    prevOpen.current = open;
+    prevOpen.current = open;  
   }, [open]);
+
+
+  useEffect(()=>{
+    OwnerData()
+  },[])
+  const [adminData , setAdminData] = useState()
+
+  const OwnerData = () => {
+    axios.get(`http://localhost:3000/getAdminbyid` , {
+      headers:{
+        admin : token
+      }
+    })
+    .then((res)=>{
+      console.log(res.data.data);
+      setAdminData(res.data.data)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
   return (
     <>
@@ -159,7 +182,7 @@ const ProfileSection = () => {
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Typography variant="h4">Good Morning,</Typography>
                         <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                          Johne Doe
+                          {adminData.adminName}
                         </Typography>
                       </Stack>
                       <Typography variant="subtitle2">Project Admin</Typography>

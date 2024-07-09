@@ -39,7 +39,7 @@ const UIColor = () => {
   const handleClose = (id, text) => {
     setMenuState({ ...menuState, [id]: null });
     if (text) {
-      axios.put(`https://box-cricket-api.onrender.com/approveBox/${id}`, { status: text })
+      axios.put(`http://localhost:3000/approveBox/${id}`, { status: text })
         .then((res) => {
           getAllbox();
         })
@@ -54,7 +54,7 @@ const UIColor = () => {
   }, [])
 
   const getAllbox = () => {
-    axios.get('https://box-cricket-api.onrender.com/getAllBox')
+    axios.get('http://localhost:3000/getAllBox')
       .then((res) => {
         console.log(res.data.data);
         setBox(res.data.data)
@@ -65,68 +65,72 @@ const UIColor = () => {
   }
 
   const handlePath = (id) => {
-    // alert('helli')
-    // console.log(id);
     navigate(`/admin/box/${id}`)
   }
 
   return (
     <MainCard title="Box request" secondary={<SecondaryAction link="" />}>
-      <Box>
+      <Box sx={{margin:'0px' , padding:{sm : '24px'}}}>
         <Grid container >
 
-          {box.map((data , i) => (
-            <Grid key={i} xs={3} sx={{ padding: '0px 10px' }}>
-              <Box onClick={()=> handlePath(data._id)} sx={{ border: '1px solid black', borderRadius: '8px', overflow: 'hidden', boxShadow: '0px 0px 3px #ccc' , transition:'all 0.5s' , '&:hover': {boxShadow: '0px 10px 30px #ddd'}, }}>
-                <img src="https://miro.medium.com/v2/resize:fit:1400/1*L3J3ee1flHzxw6ujOxPJTg.jpeg" width={'100%'} alt="" />
-                <Box sx={{ margin: '10px' }}>
-                  <h3>{data.boxName}</h3>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0px' }}>
-                    <Typography>{data.address.area}</Typography>
-                    <Typography>{data.contact}</Typography>
-                  </Box>
+          {box.map((data, i) => (
+            <Grid key={i} lg={3} md={6} xs={12} sx={{ padding: '10px 10px' }}>
+              <Box sx={{ border: '1px solid black', borderRadius: '8px', overflow: 'hidden', boxShadow: '0px 0px 3px #ccc', transition: 'all 0.5s', '&:hover': { boxShadow: '0px 10px 30px #ddd' }, }}>
+                <Box sx={{ margin: '10px' }} >
+                  <Box onClick={() => handlePath(data._id)} >
+                    <img src={`http://localhost:3000/images/${data.images[0]}`} style={{
+                      width: '100%',
+                      maxWidth: '246px',
+                      height: '164px'
+                    }}  alt="" />
+                    <h3>{data.boxName}</h3>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0px' }}>
+                      <Typography>{data.address.area}</Typography>
+                      <Typography>{data.contact}</Typography>
+                    </Box>
 
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0px' }}>
-                    <Typography>MorningPrice <b>:</b> </Typography>
-                    <Typography>{data.opning.morning.morningPrice}</Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0px' }}>
-                    <Typography>NightPrice <b>:</b> </Typography>
-                    <Typography>{data.opning.night.nightPrice}</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0px' }}>
+                      <Typography>MorningPrice <b>:</b> </Typography>
+                      <Typography>{data.opning.morning.morningPrice}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0px' }}>
+                      <Typography>NightPrice <b>:</b> </Typography>
+                      <Typography>{data.opning.night.nightPrice}</Typography>
+                    </Box>
                   </Box>
 
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '5px 0px' }}>
                     <StatusBox status={data.status}>{data.status}</StatusBox>
                     <Typography>
-                    <IconButton
-                      size="large"
-                      aria-label="account of current user"
-                      aria-controls="menu-appbar"
-                      aria-haspopup="true"
-                      onClick={(e) => handleMenu(e, data._id)}
-                      color="inherit"
-                    >
-                      <HiDotsVertical fontSize={'20px'} />
-                    </IconButton>
-                    <Menu
-                      id={`menu-appbar-${data._id}`}
-                      anchorEl={menuState[data._id]}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      open={Boolean(menuState[data._id])}
-                      onClose={() => handleClose(data._id)}
-                    >
-                      <MenuItem onClick={() => handleClose(data._id, 'Pending')}>Pending</MenuItem>
-                      <MenuItem onClick={() => handleClose(data._id, 'approved')}>Approve</MenuItem>
-                      <MenuItem onClick={() => handleClose(data._id, 'block')}>Block</MenuItem>
-                    </Menu>
+                      <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={(e) => handleMenu(e, data._id)}
+                        color="inherit"
+                      >
+                        <HiDotsVertical fontSize={'20px'} />
+                      </IconButton>
+                      <Menu
+                        id={`menu-appbar-${data._id}`}
+                        anchorEl={menuState[data._id]}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        open={Boolean(menuState[data._id])}
+                        onClose={() => handleClose(data._id)}
+                      >
+                        <MenuItem onClick={() => handleClose(data._id, 'Pending')}>Pending</MenuItem>
+                        <MenuItem onClick={() => handleClose(data._id, 'approved')}>Approve</MenuItem>
+                        <MenuItem onClick={() => handleClose(data._id, 'block')}>Block</MenuItem>
+                      </Menu>
                     </Typography>
 
                   </Box>

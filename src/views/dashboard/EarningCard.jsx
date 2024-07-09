@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -22,6 +22,7 @@ import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
+import axios from 'axios';
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
@@ -37,6 +38,26 @@ const EarningCard = ({ isLoading }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [cnt ,  setCnt] = useState(0)
+  const [cntbox ,  setCntbox] = useState(0)
+
+  useEffect(()=>{
+    getBox()
+  },[])
+
+  const getBox = () =>{
+    axios.get('http://localhost:3000/boxCount')
+    .then((res)=>{
+      // console.log(res.data.cnt);
+      setCntbox(res.data.cnt)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
+
+  
 
   return (
     <>
@@ -144,7 +165,7 @@ const EarningCard = ({ isLoading }) => {
               <Grid item>
                 <Grid container alignItems="center">
                   <Grid item>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$500.00</Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>{cntbox}</Typography>
                   </Grid>
                   <Grid item>
                     <Avatar
@@ -168,7 +189,7 @@ const EarningCard = ({ isLoading }) => {
                     color: '#D2E3C8'
                   }}
                 >
-                  Total Earning
+                  Total Box
                 </Typography>
               </Grid>
             </Grid>

@@ -57,7 +57,7 @@ const Typography = () => {
   const handleClose = (id, text) => {
     setMenuState({ ...menuState, [id]: null });
     if (text) {
-      axios.put(`https://box-cricket-api.onrender.com/approveOwner/${id}`, { status: text })
+      axios.put(`http://localhost:3000/approveOwner/${id}`, { status: text })
         .then((res) => {
           getAllowners();
         })
@@ -74,7 +74,7 @@ const Typography = () => {
   }, []);
 
   const getAllowners = () => {
-    axios.get('https://box-cricket-api.onrender.com/getOwner')
+    axios.get('http://localhost:3000/getOwner')
       .then((res) => {
         setGetAllowner(res.data.data);
       })
@@ -85,6 +85,7 @@ const Typography = () => {
 
   return (
     <MainCard title="Owner request" secondary={<SecondaryAction />}>
+      <Box sx={{padding:'24px'}}>
       <h1>Owner</h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -144,6 +145,7 @@ const Typography = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      </Box>
     </MainCard>
   );
 };

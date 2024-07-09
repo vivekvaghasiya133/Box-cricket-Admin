@@ -19,6 +19,8 @@ import Transitions from 'ui-component/extended/Transitions';
 
 // assets
 import { IconAdjustmentsHorizontal, IconSearch, IconX } from '@tabler/icons-react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderAvatar = forwardRef(({ children, ...others }, ref) => {
   const theme = useTheme();
@@ -106,6 +108,16 @@ MobileSearch.propTypes = {
 
 const SearchSection = () => {
   const [value, setValue] = useState('');
+  const navigate = useNavigate()
+
+  axios.get(`http://localhost:3000/searchIteam/search?q=${value}`)
+  .then((res)=>{
+    console.log(res); 
+  
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
 
   return (
     <>

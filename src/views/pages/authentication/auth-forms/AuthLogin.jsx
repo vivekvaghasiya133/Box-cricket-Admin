@@ -133,7 +133,7 @@ const AuthLogin = ({ ...others }) => {
           password: Yup.string().max(255).required('Password is required')
         })}
         onSubmit={(values, { setSubmitting, setErrors }) => {
-          axios.post('https://box-cricket-api.onrender.com/adminlogin', values)
+          axios.post('http://localhost:3000/adminlogin', values)
             .then((response) => {
               console.log(response.data.token );
               navigate('/')
