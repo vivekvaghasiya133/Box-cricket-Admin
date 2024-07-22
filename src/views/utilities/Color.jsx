@@ -39,7 +39,7 @@ const UIColor = () => {
   const handleClose = (id, text) => {
     setMenuState({ ...menuState, [id]: null });
     if (text) {
-      axios.put(`http://localhost:3000/approveBox/${id}`, { status: text })
+      axios.put(`https://box-cricket-api.onrender.com/approveBox/${id}`, { status: text })
         .then((res) => {
           getAllbox();
         })
@@ -54,7 +54,7 @@ const UIColor = () => {
   }, [])
 
   const getAllbox = () => {
-    axios.get('http://localhost:3000/getAllBox')
+    axios.get('https://box-cricket-api.onrender.com/getAllBox')
       .then((res) => {
         console.log(res.data.data);
         setBox(res.data.data)
@@ -78,7 +78,7 @@ const UIColor = () => {
               <Box sx={{ border: '1px solid black', borderRadius: '8px', overflow: 'hidden', boxShadow: '0px 0px 3px #ccc', transition: 'all 0.5s', '&:hover': { boxShadow: '0px 10px 30px #ddd' }, }}>
                 <Box sx={{ margin: '10px' }} >
                   <Box onClick={() => handlePath(data._id)} >
-                    <img src={`http://localhost:3000/images/${data.images[0]}`} style={{
+                    <img src={`https://box-cricket-api.onrender.com/images/${data.images[0]}`} style={{
                       width: '100%',
                       maxWidth: '246px',
                       height: '164px'

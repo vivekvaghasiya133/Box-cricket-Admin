@@ -40,7 +40,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
     getOwner()
   },[])
   const getOwner = () => {
-    axios.get('http://localhost:3000/ownerCount')
+    axios.get('https://box-cricket-api.onrender.com/ownerCount')
     .then((res)=>{
       console.log(res.data.cnt);
       setCnt(res.data.cnt)

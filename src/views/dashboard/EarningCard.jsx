@@ -46,7 +46,7 @@ const EarningCard = ({ isLoading }) => {
   },[])
 
   const getBox = () =>{
-    axios.get('http://localhost:3000/boxCount')
+    axios.get('https://box-cricket-api.onrender.com/boxCount')
     .then((res)=>{
       // console.log(res.data.cnt);
       setCntbox(res.data.cnt)

@@ -110,14 +110,14 @@ const SearchSection = () => {
   const [value, setValue] = useState('');
   const navigate = useNavigate()
 
-  axios.get(`http://localhost:3000/searchIteam/search?q=${value}`)
-  .then((res)=>{
-    console.log(res); 
+  // axios.get(`https://box-cricket-api.onrender.com/searchIteam/search?q=${value}`)
+  // .then((res)=>{
+  //   console.log(res); 
   
-  })
-  .catch((err)=>{
-    console.log(err);
-  })
+  // })
+  // .catch((err)=>{
+  //   console.log(err);
+  // })
 
   return (
     <>

@@ -57,7 +57,7 @@ const Typography = () => {
   const handleClose = (id, text) => {
     setMenuState({ ...menuState, [id]: null });
     if (text) {
-      axios.put(`http://localhost:3000/approveOwner/${id}`, { status: text })
+      axios.put(`https://box-cricket-api.onrender.com/approveOwner/${id}`, { status: text })
         .then((res) => {
           getAllowners();
         })
@@ -74,7 +74,7 @@ const Typography = () => {
   }, []);
 
   const getAllowners = () => {
-    axios.get('http://localhost:3000/getOwner')
+    axios.get('https://box-cricket-api.onrender.com/getOwner')
       .then((res) => {
         setGetAllowner(res.data.data);
       })
