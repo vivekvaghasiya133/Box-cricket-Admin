@@ -78,7 +78,7 @@ const UIColor = () => {
               <Box sx={{ border: '1px solid black', borderRadius: '8px', overflow: 'hidden', boxShadow: '0px 0px 3px #ccc', transition: 'all 0.5s', '&:hover': { boxShadow: '0px 10px 30px #ddd' }, }}>
                 <Box sx={{ margin: '10px' }} >
                   <Box onClick={() => handlePath(data._id)} >
-                    <img src={`https://box-cricket-api.onrender.com/images/${data.images[0]}`} style={{
+                    <img src={data.images[0]} style={{
                       width: '100%',
                       maxWidth: '246px',
                       height: '164px'

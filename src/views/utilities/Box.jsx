@@ -37,14 +37,14 @@ const BoxShow = () => {
                     <Grid container >
                         <Grid xs={6}>
                             <Box>
-                                <img width={'100%'} height={'400px'}  src={`https://box-cricket-api.onrender.com/images/${img}`} alt="" />
+                                <img width={'100%'} height={'400px'}  src={img} alt="" />
                             </Box>
                             <Box>
                                 <Grid sx={{display:'flex' , justifyContent:'center'}} container>
                                     {data.images.map((img , i) => (
                                         <>
                                             <Grid xs={3}>
-                                                <Box className="size" sx={{ padding: '10px 10px'}}><img height='100px'  onClick={()=>handleImg(img)} width={'100%'} src={`https://box-cricket-api.onrender.com/images/${data.images[i]}`} alt="" /></Box>
+                                                <Box className="size" sx={{ padding: '10px 10px'}}><img height='100px'  onClick={()=>handleImg(img)} width={'100%'} src={data.images[i]} alt="" /></Box>
                                             </Grid>
                                             
                                         </>
